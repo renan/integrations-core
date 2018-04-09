@@ -477,7 +477,7 @@ class ESCheck(AgentCheck):
             pending_tasks_data = self._get_data(pending_tasks_url, config)
             self._process_pending_tasks_data(pending_tasks_data, config)
 
-        if config.index_stats and version >= [1, 3, 0]:
+        if config.index_stats and version >= [1, 0, 0]:
             self._get_index_metrics(config)
 
         # If we're here we did not have any ES conn issues
@@ -516,6 +516,7 @@ class ESCheck(AgentCheck):
         index_url = urlparse.urljoin(config.url, cat_url)
         index_resp = self._get_data(index_url, config)
         index_stats_metrics = self.INDEX_STATS_METRICS
+        print "INDEX!!!!!", index_resp
         for idx in index_resp:
             tags = config.tags + ['index_name:' + idx['index']]
             index_data = {
@@ -531,6 +532,7 @@ class ESCheck(AgentCheck):
             for metric in index_stats_metrics:
                 # metric description
                 desc = index_stats_metrics[metric]
+                print "DESC!!!!!", desc
                 self._process_metric(index_data, metric, *desc, tags=tags)
 
 
@@ -733,9 +735,11 @@ class ESCheck(AgentCheck):
         xform: a lambda to apply to the numerical value
         """
         value = data
+        print "VALUE IN PROCESS METRIC!!!!!", value
 
         # Traverse the nested dictionaries
         for key in path.split('.'):
+            print "KEY!!!!!!", key
             if value is not None:
                 value = value.get(key, None)
             else:
