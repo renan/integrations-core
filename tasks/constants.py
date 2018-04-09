@@ -16,6 +16,7 @@ AGENT_BASED_INTEGRATIONS = [
     'directory',
     'disk',
     'envoy',
+    'haproxy',
     'istio',
     'kube_proxy',
     'kubelet',
