@@ -617,8 +617,7 @@ class TestElastic(AgentCheckTest):
             {'url': 'http://localhost:9200', 'index_stats': True}
         ]}
 
-        if get_es_version() >= [1, 3, 0]:
-            index_metrics = INDEX_STATS_METRICS
-            self.run_check(config)
-            for m_name, desc in index_metrics.iteritems():
-                self.assertMetric(m_name, count=1)
+        index_metrics = INDEX_STATS_METRICS
+        self.run_check(config)
+        for m_name, desc in index_metrics.iteritems():
+            self.assertMetric(m_name, count=1)

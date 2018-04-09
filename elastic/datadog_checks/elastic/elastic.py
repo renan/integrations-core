@@ -735,11 +735,9 @@ class ESCheck(AgentCheck):
         xform: a lambda to apply to the numerical value
         """
         value = data
-        print "VALUE IN PROCESS METRIC!!!!!", value
 
         # Traverse the nested dictionaries
         for key in path.split('.'):
-            print "KEY!!!!!!", key
             if value is not None:
                 value = value.get(key, None)
             else:
